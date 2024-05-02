@@ -1,0 +1,35 @@
+[
+    {
+        "_id": {
+            "$oid": "64000008f0f6e522704fd706"
+          },
+        "firstname": "Andréa",
+        "username": "ILoveCookies",
+        "password": "$2b$10$ZSWbAvfd7QxvtgcgNx3er.i1oI3HUgZahvwSCd3ts.NSbyJ",
+        "token": "OMyN1tFVN_SA4Udf3cGY_LwT",
+        "picture": "profiles-pictures/Andrea-picture.jpg",
+        "inscriptionDate": "2022-01-12T14:25:37.000Z"
+    },
+    {
+        "_id": {
+            "$oid": "64000008f0f6e522704fd707"
+          },
+        "firstname": "Paul",
+        "username": "legrinmpeurdu75",
+        "password": "$2b$10$JHWbAvfd7QxvtgcgNx3er.i1oI3HUgZahvwSCd3ts.NSbyJ",
+        "token": "OMyN1tFVN_SA7Udf3cGY_LwT",
+        "picture": "profiles-pictures/Paul-picture.jpg",
+        "inscriptionDate": "2019-02-14T10:29:39.137Z"
+    },
+    { 
+        "_id": {
+        "$oid": "64000008f0f6e522704fd708"
+      },
+        "firstname": "Elias",
+        "username": "jetlag",
+        "password": "$2b$10$ZSWbAvfd7QxvtgcgNx3er.i1oI3HOgZfhvwSCd3ts.NSbyJ",
+        "token": "OMyN1tFVN_SA4Udf4hGY_LwT",
+        "picture": "profiles-pictures/Elias-picture.jpg",
+        "inscriptionDate": "2022-02-14T10:29:39.000Z"
+    }
+]

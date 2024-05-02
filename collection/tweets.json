@@ -1,0 +1,46 @@
+[
+    {
+        "content": "#coding What a beautiful day for codin #developer!",
+        "time": "2024-05-02T12:00:00Z",
+        "picture": "https://exemple.com/photos/day.jpg",
+        "likers": [],
+      
+        "user": {
+            "$oid": "64000008f0f6e522704fd706"
+          },
+        "hashtag": ["#coding", "#developer", "#tech"]
+    },
+    {
+        "content": "#marathon Just completed a marathon! #running Feeling great!",
+        "time": "2024-05-02T15:30:00Z",
+        "picture": "https://exemple.com/photos/marathon.jpg",
+        "likers": [],
+        "user": {
+            "$oid": "64000008f0f6e522704fd707"
+          },
+        "hashtag": ["#marathon", "#running", "#fitness"]
+
+    },
+    {
+        "content": "#veganlife Exploring the best vegan #marathon recipes. #recipes Yum!",
+        "time": "2024-05-02T18:45:00Z",
+        "picture": "https://exemple.com/photos/vegan.jpg",
+        "likers": [],
+        "user": {
+            "$oid": "64000008f0f6e522704fd708"
+          },
+        "hashtag": ["#veganlife", "#healthyfood", "#marathon", "#recipes"]
+        
+    },
+    {
+      "content": "Exploring the best vegan recipes. Yum!",
+      "time": "2024-05-02T18:45:00Z",
+      "picture": "https://exemple.com/photos/vegan.jpg",
+      "likers": [],
+      "user": {
+          "$oid": "64000008f0f6e522704fd708"
+        },
+      "hashtag": []
+      
+  }
+]
