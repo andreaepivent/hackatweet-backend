@@ -23,7 +23,7 @@ function authenticateToken(req, res, next) {
     if (err) return res.sendStatus(500); // Erreur serveur
     if (!user) return res.sendStatus(403); // Aucun utilisateur trouvé avec ce token
 
-    req.user = user;
+    req.userId = user._id.toString();
     next(); // Continue vers la route post si le token est valide
   });
 }
@@ -35,7 +35,7 @@ router.post("/", authenticateToken, function (req, res, next) {
     time: new Date().toISOString(),
     like: 0,
     hashtag: req.body.hashtag ? [req.body.hashtag] : [],
-    // user: req.user._id,
+    // user: req.userId,
     user: "64000008f0f6e522704fd707",
     image: null,
   });
