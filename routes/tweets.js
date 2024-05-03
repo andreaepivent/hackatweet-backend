@@ -74,7 +74,7 @@ router.post("/like/:id", function (req, res, next) {
       const userId = data.user._id;
       const isLiked = data.likers.includes(userId);
       if (isLiked) {
-        data.likers = data.likers.filter((id) => id !== userId);
+        data.likers = data.likers.filter((id) => id === userId);
       } else {
         data.likers.push(userId);
       }
@@ -87,6 +87,25 @@ router.post("/like/:id", function (req, res, next) {
       });
     }
   });
+});
+
+router.get("/likers/:id", function (req, res) {
+  const tweetId = req.params.id;
+
+  Tweet.findById(tweetId)
+    .then((tweet) => {
+      if (!tweet) {
+        res.status(404).json({ result: false, error: "Tweet non trouvé" });
+      } else {
+        res.json({ result: true, likers: tweet.likers });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res
+        .status(500)
+        .json({ result: false, error: "Erreur interne du serveur" });
+    });
 });
 
 module.exports = router;
