@@ -66,28 +66,30 @@ router.delete("/:id", function (req, res, next) {
 });
 
 // like one Tweet
-router.post("/like/:id", authenticateToken, function (req, res, next) {
-  Tweet.findOne({ _id: req.params.id }).then((data) => {
-    if (!data) {
-      res.json({ result: false, error: "Aucun tweet à liker" });
-    } else {
-      const userId = req.userId;
-      const isLiked = data.likers.includes(userId);
-      if (isLiked) {
-        const index = data.likers.indexOf(userId);
-        data.likers.splice(index, 1);
-      } else {
-        data.likers.push(userId);
-      }
-      data.save().then(() => {
-        res.json({
-          result: true,
-          message: isLiked ? "Like retiré" : "Tweet liké",
-          likers: data.likers,
-        });
-      });
+router.post("/like/:id", authenticateToken, async function (req, res) {
+  const tweetId = req.params.id;
+  const userId = req.userId;
+
+  try {
+    const tweet = await Tweet.findById(tweetId);
+    if (!tweet) {
+      return res.status(404).json({ result: false, error: "Aucun tweet à liker" });
     }
-  });
+
+    const isLiked = tweet.likers.includes(userId);
+    const update = isLiked
+      ? { $pull: { likers: userId } }  // If already liked, remove the user from likers
+      : { $push: { likers: userId } }; // If not liked, add the user to likers
+
+    const updatedTweet = await Tweet.findByIdAndUpdate(tweetId, update, { new: true });
+    res.json({
+      result: true,
+      message: isLiked ? "Like retiré" : "Tweet liké",
+      likers: updatedTweet.likers
+    });
+  } catch (err) {
+    res.status(500).json({ result: false, error: "Server error" });
+  }
 });
 
 module.exports = router;
