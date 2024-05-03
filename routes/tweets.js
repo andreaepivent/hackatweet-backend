@@ -66,15 +66,16 @@ router.delete("/:id", function (req, res, next) {
 });
 
 // like one Tweet
-router.post("/like/:id", function (req, res, next) {
+router.post("/like/:id", authenticateToken, function (req, res, next) {
   Tweet.findOne({ _id: req.params.id }).then((data) => {
     if (!data) {
       res.json({ result: false, error: "Aucun tweet à liker" });
     } else {
-      const userId = data.user._id;
+      const userId = req.userId;
       const isLiked = data.likers.includes(userId);
       if (isLiked) {
-        data.likers = data.likers.filter((id) => id === userId);
+        const index = data.likers.indexOf(userId);
+        data.likers.splice(index, 1);
       } else {
         data.likers.push(userId);
       }
