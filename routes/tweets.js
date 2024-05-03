@@ -19,13 +19,14 @@ function authenticateToken(req, res, next) {
 
   if (token == null) return res.sendStatus(401); // Aucun token fourni
 
-  User.findOne({ token: token }).exec((err, user) => {
-    if (err) return res.sendStatus(500); // Erreur serveur
-    if (!user) return res.sendStatus(403); // Aucun utilisateur trouvé avec ce token
-
-    req.userId = user._id.toString();
-    next(); // Continue vers la route post si le token est valide
-  });
+  User.findOne({ token: token })
+    .exec()
+    .then((user) => {
+      if (!user) return res.sendStatus(403); // Aucun utilisateur trouvé avec ce token
+      req.userId = user._id.toString();
+      next(); // Continue vers la route post si le token est valide
+    })
+    .catch((err) => res.sendStatus(500)); // Erreur serveur
 }
 
 // Post One Tweet avec le token
@@ -34,9 +35,8 @@ router.post("/", authenticateToken, function (req, res, next) {
     content: req.body.content,
     time: new Date().toISOString(),
     like: 0,
-    hashtag: req.body.hashtag ? [req.body.hashtag] : [],
-    // user: req.userId,
-    user: "64000008f0f6e522704fd707",
+    hashtag: req.body.hashtag ? req.body.hashtag : [],
+    user: req.userId,
     image: null,
   });
   newTweet
