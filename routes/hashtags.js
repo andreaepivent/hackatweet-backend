@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 const Tweet = require("../models/tweet");
 const { extractHashtags } = require("../modules/extractHashtag");
+const { countHashtags } = require("../modules/countHashtags");
+
 
 // Tout les tweet sans hashtags
 router.get("/", function (req, res, next) {
@@ -13,7 +15,7 @@ router.get("/", function (req, res, next) {
           .status(404)
           .json({ message: "No tweets with hashtags found" });
       }
-      res.json({ result: true, data });
+      res.json({ result: true, hashtags: countHashtags(data) });
     });
 });
 
