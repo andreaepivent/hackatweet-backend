@@ -52,10 +52,10 @@ router.post("/", authenticateToken, function (req, res, next) {
 
 // Delete One Tweet
 router.delete("/:id", function (req, res, next) {
-  Post.deleteOne({ _id: req.params.id }).then((data) => {
+  Tweet.deleteOne({ _id: req.params.id }).then((data) => {
     {
       if (data.deletedCount > 0) {
-        Post.find().then((data) => {
+        Tweet.find().then((data) => {
           res.json({ result: true, data });
         });
       } else {
@@ -88,25 +88,6 @@ router.post("/like/:id", authenticateToken, function (req, res, next) {
       });
     }
   });
-});
-
-router.get("/likers/:id", function (req, res) {
-  const tweetId = req.params.id;
-
-  Tweet.findById(tweetId)
-    .then((tweet) => {
-      if (!tweet) {
-        res.status(404).json({ result: false, error: "Tweet non trouvé" });
-      } else {
-        res.json({ result: true, likers: tweet.likers });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res
-        .status(500)
-        .json({ result: false, error: "Erreur interne du serveur" });
-    });
 });
 
 module.exports = router;
