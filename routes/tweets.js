@@ -67,20 +67,29 @@ router.delete("/:id", function (req, res, next) {
 
 // like one Tweet
 router.post("/like/:id", function (req, res, next) {
-  Tweet.findbyId(req.params.id).then((data) => {
+  Tweet.findOne({ _id: req.params.id }).then((data) => {
+    console.log(data.user._id);
     {
       if (!data) {
         res.json({ result: false, error: "Aucun tweet a like" });
       } else {
-        if (data.likers.included(req.user._id)) {
-          data.like.pop(req.user._id);
+        if (data.likers.includes(data.user._id)) {
+          data.likers.pop(data.user._id);
           data.save().then(() => {
-            res.json({ result: true, message: "Tweet déjà liké" });
+            res.json({
+              result: true,
+              message: "Tweet déjà liké",
+              likers: [data.user._id],
+            });
           });
         } else {
-          data.likers.push(req.user._id);
+          data.likers.push(data.user._id);
           data.save().then(() => {
-            res.json({ result: true, message: "Tweet liké" });
+            res.json({
+              result: true,
+              message: "Tweet liké",
+              likers: [data.user._id],
+            });
           });
         }
       }
