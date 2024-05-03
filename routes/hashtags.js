@@ -28,6 +28,7 @@ router.get("/:hashtag", (req, res) => {
   }
 
   Tweet.find({ hashtag: decodedHashtag })
+    .populate("user")
     .then((data) => {
       if (data.length === 0) {
         return res.status(404).json({ message: "Aucun tweet avec ce hashtag" });
